@@ -13,7 +13,11 @@ build
 
 # env
 .env
+.env.local
 .env.*.local
+.env.production
+.env.development
+.env.test
 
 # logs
 npm-debug.log*

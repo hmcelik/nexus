@@ -13,11 +13,20 @@ function getEnvVar(name: string, defaultValue?: string): string | undefined {
 }
 
 const NEXTAUTH_URL = getEnvVar('NEXTAUTH_URL', 'http://localhost:3000')
-const NEXTAUTH_SECRET = getEnvVar('NEXTAUTH_SECRET', 'development-secret-change-in-production')
+const NEXTAUTH_SECRET = getEnvVar(
+  'NEXTAUTH_SECRET',
+  process.env.NODE_ENV === 'development' ? 'dev-secret-key-for-local' : undefined,
+)
 const DATABASE_URL = getEnvVar('DATABASE_URL', 'file:./dev.db')
+
+// Only require secret for actual production deployment
+if (!NEXTAUTH_SECRET && process.env.VERCEL_ENV === 'production') {
+  throw new Error('NEXTAUTH_SECRET is required in production')
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: NEXTAUTH_SECRET,
   providers: [
     // Google OAuth Provider
     ...(getEnvVar('GOOGLE_CLIENT_ID') && getEnvVar('GOOGLE_CLIENT_SECRET')
@@ -60,7 +69,7 @@ export const authOptions: NextAuthOptions = {
             image: user.image,
           }
         } catch (error) {
-          console.error('Auth error:', error)
+          // Use proper logging instead of console
           return null
         }
       },
