@@ -1,5 +1,5 @@
 import { beforeAll, afterAll, beforeEach, vi } from 'vitest'
-import { PrismaClient } from '@nexus/database'
+import { prisma, PrismaClient } from '@nexus/database'
 import path from 'path'
 
 // Mock NextAuth

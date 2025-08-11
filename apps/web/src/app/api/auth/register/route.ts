@@ -1,23 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { PrismaClient } from '@nexus/database'
-
-// Initialize Prisma client
-let prisma: PrismaClient
-
-declare global {
-  // eslint-disable-next-line no-var
-  var __prisma: PrismaClient | undefined
-}
-
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient()
-} else {
-  if (!global.__prisma) {
-    global.__prisma = new PrismaClient()
-  }
-  prisma = global.__prisma
-}
+import { prisma } from '@nexus/database'
 
 export async function POST(request: NextRequest) {
   try {
