@@ -3,5 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "src/logger.ts"
+  "main": "src/logger.ts",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
+  }
 }

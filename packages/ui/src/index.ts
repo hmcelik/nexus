@@ -9,6 +9,7 @@ export {
   CardContent,
   type CardProps,
 } from './components/card'
+export { Badge } from './badge'
 
 // Utilities
 export { cn } from './lib/utils'
