@@ -3,5 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "index.cjs"
+  "main": "index.cjs",
+  "dependencies": {
+    "@eslint/js": "^9.33.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "globals": "^15.0.0"
+  }
 }

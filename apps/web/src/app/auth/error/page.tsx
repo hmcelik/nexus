@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { Card, CardHeader, CardTitle, CardContent, Button } from '@nexus/ui'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 const errorMessages = {
   Configuration: 'There is a problem with the server configuration.',
@@ -11,7 +12,7 @@ const errorMessages = {
   Default: 'An error occurred during authentication.',
 }
 
-export default function AuthErrorPage() {
+function AuthErrorContent() {
   const searchParams = useSearchParams()
   const error = searchParams.get('error') as keyof typeof errorMessages
 
@@ -33,5 +34,28 @@ export default function AuthErrorPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+function AuthErrorLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center">Loading...</CardTitle>
+        </CardHeader>
+        <CardContent className="text-center">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-600 mx-auto"></div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<AuthErrorLoading />}>
+      <AuthErrorContent />
+    </Suspense>
   )
 }

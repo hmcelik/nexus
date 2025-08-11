@@ -1,2 +1,8 @@
-import base from '../../packages/eslint-config/index.cjs'
-export default [base]
+import js from "@eslint/js";
+
+export default [
+  js.configs.recommended,
+  {
+    ignores: [".next/**", "out/**", "dist/**"]
+  }
+];

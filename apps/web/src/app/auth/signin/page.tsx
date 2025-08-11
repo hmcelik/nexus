@@ -1,7 +1,7 @@
 'use client'
 
 import { signIn, getProviders } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '@nexus/ui'
@@ -15,7 +15,7 @@ type Provider = {
   callbackUrl: string
 }
 
-export default function SignInPage() {
+function SignInForm() {
   const [providers, setProviders] = useState<Record<string, Provider> | null>(null)
   const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
@@ -280,5 +280,24 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function SignInLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div className="flex items-center space-x-2 text-slate-600">
+        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+        <span>Loading...</span>
+      </div>
+    </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<SignInLoading />}>
+      <SignInForm />
+    </Suspense>
   )
 }

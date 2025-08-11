@@ -6,6 +6,10 @@ node_modules
 out
 dist
 *.tsbuildinfo
+build
+
+# turbo
+.turbo
 
 # env
 .env
@@ -17,5 +21,20 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# testing
+coverage
+.nyc_output
+
 # misc
 .DS_Store
+*.swp
+*.swo
+
+# IDE
+.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,10 +1,21 @@
+const js = require('@eslint/js')
+
 module.exports = {
-  root: false,
-  env: { es2022: true, node: true, browser: true },
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  extends: ['eslint:recommended', 'plugin:import/recommended', 'prettier'],
-  plugins: ['unused-imports'],
+  languageOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    globals: {
+      ...require('globals').node,
+      ...require('globals').browser,
+      ...require('globals').es2022
+    }
+  },
+  plugins: {
+    'unused-imports': require('eslint-plugin-unused-imports'),
+    import: require('eslint-plugin-import')
+  },
   rules: {
+    ...js.configs.recommended.rules,
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'import/order': [
       'warn',
@@ -15,5 +26,10 @@ module.exports = {
     ],
     'unused-imports/no-unused-imports': 'error'
   },
-  settings: { 'import/resolver': { node: true, typescript: true } }
+  settings: { 
+    'import/resolver': { 
+      node: true, 
+      typescript: true 
+    } 
+  }
 }
